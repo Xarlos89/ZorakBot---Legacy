@@ -1,0 +1,11 @@
+** Question 9 **
+Medium
+
+Question
+Write a program that accepts sequence of lines as input and prints the lines after making every third character in the sentence capitalized.
+Suppose the following input is supplied to the program:
+Hello world
+Practice makes perfect
+Then, the output should be:
+heLlo WorLd
+prActIce MakEs pErfEct

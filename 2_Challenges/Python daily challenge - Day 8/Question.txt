@@ -1,0 +1,12 @@
+** Day 8 **
+
+Ninjas frequently need to signal each other in code.
+They often employ natural sounds as cover. 
+Our ninja will chirp like a bird, with different amounts of chirps signifying different messages.
+Write a python program that takes input into a function and has signals for attack, hide and caution, using different bird sounds. You may create multiple functions. 
+
+input-output should look like:
+```py
+chirp(4);
+    # output would be chirp-chirp-chirp-chirp.```
+
