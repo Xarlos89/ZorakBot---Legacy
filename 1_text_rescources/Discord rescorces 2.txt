@@ -1,0 +1,24 @@
+**Code Editors**
+Starting with the most simple, and moving up in complexity.
+It should be noted that no one option is better than the other. 
+The editor should fit your needs and wants. 
+More is not always better. 
+
+*** Practical Python! ***
+Replit - https://replit.com/join/wrfkuqflbx-xarlos89
+
+*** Very Simple ***
+IDLE - https://docs.python.org/3/library/idle.html
+Thonny (PC Only!) - https://thonny.org/
+Notepad ++ (PC only!) - https://notepad-plus-plus.org/downloads/
+PyScripter (PC only!) - https://sourceforge.net/projects/pyscripter/
+
+*** Simple ***
+Sublime Text - https://www.sublimetext.com/
+Atom - https://atom.io/
+
+
+*** More complex ***
+PyCharm - https://www.jetbrains.com/pycharm/
+VS Code - https://code.visualstudio.com/
+Spyder - https://github.com/spyder-ide/spyder

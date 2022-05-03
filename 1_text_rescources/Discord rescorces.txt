@@ -1,0 +1,28 @@
+** Cheat Sheet / Quick Reference **
+https://overapi.com/python -- A Quick reference python cheatsheet. Very handy to have nearby.
+https://docs.python.org/3/py-modindex.html -- Official Python Docs
+
+**Cool Tools**
+https://jsonformatter.curiousconcept.com/# --  A site that helps you quickly format JSON into it's most readable form. 
+https://www.regextester.com/ -- A site to help you build meaningful regex. Enter a stringer nd the expression and the matches are highlighted. 
+
+** Daily Challenges **
+https://www.hackerrank.com/domains/python -- Hackerrank
+https://www.practicepython.org/ -- PracticePython
+https://pythonprinciples.com/challenges/ -- Python Principles
+https://www.codecademy.com/resources/blog/advanced-python-code-challenges/ -- CodeAcademy
+https://adventofcode.com/ -- Advent of Code
+
+** Helpful Websites **
+https://www.geeksforgeeks.org/python-programming-language/?ref=lbp -- GeeksForGeeks, Awesome documentation, awesome examples
+https://www.w3schools.com/python/default.asp -- W3Schools , excellent python documentation
+
+
+** Free Courses **
+https://realpython.com/ -- Codealong tutorials, very well made.
+https://automatetheboringstuff.com/ -- Fantastic practical approach to Python. Very well made.
+https://www.twilio.com/quest/learn/python -- Learn python while you create a game! very cool.
+https://www.sololearn.com/home - A well made self-learning site. 
+
+** Invitation Link **
+https://discord.gg/vgZmgNwuHw
