@@ -18,14 +18,29 @@ partial_run = partial(app.run, host="0.0.0.0", port=80, debug=False, use_reloade
 @client.event
 async def on_ready():
 	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
-	print('{0.user}, online and ready.'.format(client))
+	print('{0.user}, ready to conquer the world.'.format(client))
 
-	
-#-----------------------------#  Bot commands.
+
+#-----------------------------#  Administrator Bot commands.
 @client.event
 async def on_message(message):
+	if message.content.startswith('!echo') == True:
+		if message.author.guild_permissions.administrator == True:
+			text = message.content.replace('!echo','')
+			await message.channel.send(text)
+			await message.delete()
+		else:
+			await message.channel.send('You are not my master.', reference=message)
 
-		
+	if message.content == ('!dailychallenge'):
+		if message.author.guild_permissions.administrator == True:
+			await message.channel.send(BotFuncs.DailyChallenge())
+			BotFuncs.increaseDay()
+		else:
+			await message.channel.send('You are not my master.', reference=message)
+	
+	
+#-----------------------------#  User Commands	
 	if message.content == ('!hello'):
 		await message.channel.send('Dont talk to me, Im being developed.', reference=message)
 
@@ -52,7 +67,7 @@ async def on_message(message):
 	if message.content == ('!fakeperson'):
 		await message.channel.send(BotFuncs.fakePerson(),reference=message)
 		
-	if message.content.startswith("https://Ídiscord.com/channels/900302240559018015/") == True:
+	if message.content.startswith("https://discord.com/channels/900302240559018015/") == True:
 		try:
 			response = "-**---** **Content** **in** **the** **link** **above** **---**- \n\n"
 			link = message.content.split('/')
@@ -61,11 +76,11 @@ async def on_message(message):
 			sourceMessage = await sourceChannel.fetch_message(int(link[6]))
 			await message.channel.send(response + sourceMessage.content)
 		except:
-			
 			await message.channel.send("-**Cannot** **preview**-\n-**I** **have** **no** **access** **to** **this** **channel.**-")
 
-#-----------------------------#  Bot commands IN DEVELOPMENT.
-
+	
+	
+	
 	if message.content.startswith('!embed') == True:
 		text = message.content
 		text = text.replace('!embed', '').replace("title= ", '').replace("message= ", '')
@@ -74,32 +89,11 @@ async def on_message(message):
 		embed.add_field(name=u_m[1], value=":slight_smile:")
 		await message.channel.send(embed=embed)
 		await message.delete()
-		
-	# if message.content == "dm":
-	# 	await message.channel.send("Dming user")
-	# 	dm = await message.author.create_dm()  # Creates a dm channel with the user
-	# 	await dm.send("What you want to send")
 
-
-		
-
-#-----------------------------#  Administrator Bot commands.    
-	if message.content.startswith('!echo') == True:
-		if message.author.guild_permissions.administrator == True:
-			text = message.content.replace('!echo','')
-			await message.channel.send(text)
-			await message.delete()
-		else:
-			await message.channel.send('You are not my master.', reference=message)
-
-	if message.content == ('!dailychallenge'):
-		if message.author.guild_permissions.administrator == True:
-			await message.channel.send(BotFuncs.DailyChallenge())
-			BotFuncs.increaseDay()
-		else:
-			await message.channel.send('You are not my master.', reference=message)
-
-
+	if message.content == "dm":
+		await message.channel.send("Dming user")
+		dm = await message.author.create_dm()  # Creates a dm channel with the user
+		await dm.send("What you want to send")
 
 
 
