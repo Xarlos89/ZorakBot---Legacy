@@ -52,7 +52,7 @@ async def on_message(message):
 	if message.content == ('!fakeperson'):
 		await message.channel.send(BotFuncs.fakePerson(),reference=message)
 		
-	if message.content.startswith("https://discord.com/channels/900302240559018015/") == True:
+	if message.content.startswith("https://Ídiscord.com/channels/900302240559018015/") == True:
 		try:
 			response = "-**---** **Content** **in** **the** **link** **above** **---**- \n\n"
 			link = message.content.split('/')
@@ -61,6 +61,7 @@ async def on_message(message):
 			sourceMessage = await sourceChannel.fetch_message(int(link[6]))
 			await message.channel.send(response + sourceMessage.content)
 		except:
+			
 			await message.channel.send("-**Cannot** **preview**-\n-**I** **have** **no** **access** **to** **this** **channel.**-")
 
 #-----------------------------#  Bot commands IN DEVELOPMENT.
