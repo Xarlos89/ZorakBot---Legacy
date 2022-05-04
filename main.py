@@ -70,17 +70,28 @@ async def on_message(message):
 	
 	if message.content.startswith('!embed') == True:
 		text = message.content
-		text = text.replace('!embed', '').replace("title= ", '').replace("message= ", '')
-		u_m = text.split(", ")
-		embed = discord.Embed(title=u_m[0], description="", timestamp=datetime.datetime.utcnow())
-		embed.add_field(name=u_m[1], value=":slight_smile:")
-		await message.channel.send(embed=embed)
-		await message.delete()
+		text = text.replace('!embed', '').split("\n")
+		print(len(text))
+		embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
 
-	if message.content == "dm":
-		await message.channel.send("Dming user")
-		dm = await message.author.create_dm()  # Creates a dm channel with the user
-		await dm.send("What you want to send")
+		if len(text) <= 3:
+				embed.add_field(name='Content', value=text[2])
+				await message.channel.send(embed=embed), await message.delete()
+				
+		if len(text) > 3:
+				for i in range(2, len(text)):
+						print(i)
+						if len(text[i]) < 1:
+								continue
+						else:
+								embed.add_field(name=f"*_*-*_*-*_*-*_*", value=text[i], inline=False)
+				embed.set_footer(text=message.author)
+				await message.channel.send(embed=embed), await message.delete()
+
+	# if message.content == "dm":
+	# 	await message.channel.send("Dming user")
+	# 	dm = await message.author.create_dm()  # Creates a dm channel with the user
+	# 	await dm.send("What you want to send")
 
 	if "https://discord.com/channels" in message.content:
 		text = message.content
