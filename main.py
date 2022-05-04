@@ -5,6 +5,7 @@ import BotFuncs
 import discord
 import os
 import datetime
+import math
 
 #----------------------------# Flask bot heartbeat. Keep Zorak alive.
 client = discord.Client() 
