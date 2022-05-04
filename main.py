@@ -71,7 +71,6 @@ async def on_message(message):
 	if message.content.startswith('!embed') == True:
 		text = message.content
 		text = text.replace('!embed', '').split("\n")
-		print(len(text))
 		embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
 
 		if len(text) <= 3:
@@ -80,7 +79,6 @@ async def on_message(message):
 				
 		if len(text) > 3:
 				for i in range(2, len(text)):
-						print(i)
 						if len(text[i]) < 1:
 								continue
 						else:
