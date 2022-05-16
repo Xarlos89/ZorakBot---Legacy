@@ -1,3 +1,4 @@
+from keep_alive import keep_alive
 from functools import partial
 from flask import Flask
 import threading
@@ -47,7 +48,7 @@ async def on_message(message):
 			embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
 			for index, content in enumerate(text):
 				if int(index) >= 2:
-					embed.add_field(name='Rule #'+str(index) , value=content)
+					embed.add_field(name='Rule #'+str(index-1) , value=content)
 			await message.channel.send(embed=embed), await message.delete()
 						
 
@@ -148,6 +149,6 @@ async def on_message(message):
 
 
 if __name__ == "__main__":
-	t1 = threading.Thread(target=partial_run)
-	t1.start()
+	# t1 = threading.Thread(target=partial_run)
+	keep_alive()
 	client.run(os.environ['TOKEN'])

@@ -1,29 +1,16 @@
-**Rule 1**
+!rules
+Practical Python Server Rules
 Follow the Discord Community Guidelines and Terms Of Service.
-
-**Rule 2**
+Mods have final say. Feel free to appeal.
 No NSFW content is allowed in the server. This is a Python server.
-
-**Rule 3**
 Don't use Racial, Homophobic or Transphobic slurs. Respect all members.
-
-**Rule 4**
 No self-bots. We have enough bots in this server. More just creates spam.
-
-**Rule 5**
+Just ask your question. Dont ask if you can ask your question. 
+Keep discussions relevant to channel topics.
+Do not DM members without getting their permission first. If you want coding help, use the help channels.
+No unapproved advertising, including requests for paid work or your discord server. You can put your project in #-finished-projects with approval.  
 Do not try to mention @everyone, or unnecessarily ping members/roles. You should never ping members who are not present in the current discussion, unless they've previously given you permission.
 
-**Rule 6**
-Just ask your question. Dont ask if you can ask your question. 
-
-**Rule 7**
-Keep discussions relevant to channel topics.
-
-**Rule 8**
-No unapproved advertising, including requests for paid work or your discord server. You can put your project in #-finished-projects with approval.  
-
-**Rule 9**
-Do not DM members without getting their permission first. If you want coding help, use the help channels.
 
 
 ** Violating these rules can result in a warning or ban, depending on how annoying I find you, or how I feel on that particualr day. **
