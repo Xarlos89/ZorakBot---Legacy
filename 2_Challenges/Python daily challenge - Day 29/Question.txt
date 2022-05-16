@@ -1,5 +1,4 @@
-#----------------------------------------#
-Question:
+** Day 29 **
 
 Please write a program which count and print the numbers of each character in a string input by console.
 

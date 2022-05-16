@@ -1,9 +1,21 @@
-import requests
-import json
-import os
-import random
+from bs4 import BeautifulSoup
 from time import sleep
 from os import system
+import requests
+import random
+import json
+import os
+def taunt():
+	r = requests.get('https://fungenerators.com/random/insult/shakespeare/')
+	soup = BeautifulSoup(r.content, "html.parser")
+	taunt = soup.find('h2')
+	return taunt.text
+	
+def pugFact():
+	r = requests.get('https://fungenerators.com/random/facts/dogs/pug')
+	soup = BeautifulSoup(r.content, "html.parser")
+	pugFact = soup.find('h2')
+	return pugFact.text[:-15]
 
 def dogfact():
   return(json.loads(requests.get('https://dog-api.kinduff.com/api/facts').text)['facts'][0])
