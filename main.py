@@ -110,7 +110,7 @@ async def on_message(message):
 	if message.content.startswith("!zeus") == True:
 		link = message.content.split(" ")
 		returned = BotFuncs.check_site(url=link[1])
-		if returned[1] == "ONLINE":
+		if returned[1] == "**ONLINE**":
 				COLOR = discord.Color.green()
 		else:
 				COLOR = discord.Color.red()
