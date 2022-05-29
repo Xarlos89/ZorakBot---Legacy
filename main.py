@@ -78,17 +78,7 @@ async def on_message(message):
 		
 	if message.content.startswith('!rolldice') == True:
 		await message.channel.send('**'+str(message.author.name)+'**' + ' rolled a ' +'**'+BotFuncs.dice()+'**', reference=message)
-
-
-	# THIS IS TOO DANGEROUS. INTRODUCES VULNERABILITIES IN BOT
-	# if message.content.startswith('!math') == True:
-	# 	text = message.content
-	# 	text = text.replace("!math ", "")
-	# 	try:
-	# 		await message.channel.send(eval(text), reference=message)
-	# 	except:
-	# 		await message.channel.send('Sorry, thats not math I know. You must be WAY smarter than me...', reference=message)
-			
+	
 	if message.content.startswith('!embed') == True:
 		text = message.content
 		text = text.replace('!embed', '').split("\n")
