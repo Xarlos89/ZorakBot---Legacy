@@ -1,27 +1,17 @@
 from keep_alive import keep_alive
-from functools import partial
-from flask import Flask
-import threading
 import BotFuncs
 import discord
 import os
 import datetime
 import math
 
-#----------------------------# Flask bot heartbeat. Keep Zorak alive.
-client = discord.Client() 
-app = Flask(__name__)
-@app.route('/')
-def index():
-	return "Wow, such bot, so up."
-partial_run = partial(app.run, host="0.0.0.0", port=80, debug=False, use_reloader=False)
-
 #----------------------------# Discord Bot main function. 
+client = discord.Client()
+
 @client.event
 async def on_ready():
 	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
 	print('{0.user}, ready to conquer the world.'.format(client))
-
 
 #-----------------------------#  Administrator Bot commands.
 @client.event
@@ -50,7 +40,8 @@ async def on_message(message):
 				if int(index) >= 2:
 					embed.add_field(name='Rule #'+str(index-1) , value=content)
 			await message.channel.send(embed=embed), await message.delete()
-						
+		else:
+			await message.channel.send('You are not my master.', reference=message)						
 
 #-----------------------------#  User Commands	
 	if message.content == ('!hello'):
@@ -81,9 +72,23 @@ async def on_message(message):
 
 	if message.content == ('!pugfact'):
 		await message.channel.send(BotFuncs.pugFact(), reference=message)
+		
 	if message.content == ('!taunt'):
 		await message.channel.send(BotFuncs.taunt(), reference=message)
 		
+	if message.content.startswith('!rolldice') == True:
+		await message.channel.send('**'+str(message.author.name)+'**' + ' rolled a ' +'**'+BotFuncs.dice()+'**', reference=message)
+
+
+	# THIS IS TOO DANGEROUS. INTRODUCES VULNERABILITIES IN BOT
+	# if message.content.startswith('!math') == True:
+	# 	text = message.content
+	# 	text = text.replace("!math ", "")
+	# 	try:
+	# 		await message.channel.send(eval(text), reference=message)
+	# 	except:
+	# 		await message.channel.send('Sorry, thats not math I know. You must be WAY smarter than me...', reference=message)
+			
 	if message.content.startswith('!embed') == True:
 		text = message.content
 		text = text.replace('!embed', '').split("\n")
@@ -102,10 +107,18 @@ async def on_message(message):
 				embed.set_footer(text=message.author)
 				await message.channel.send(embed=embed), await message.delete()
 
-	# if message.content == "dm":
-	# 	await message.channel.send("Dming user")
-	# 	dm = await message.author.create_dm()  # Creates a dm channel with the user
-	# 	await dm.send("What you want to send")
+	if message.content.startswith("!zeus") == True:
+		link = message.content.split(" ")
+		returned = BotFuncs.check_site(url=link[1])
+		if returned[1] == "ONLINE":
+				COLOR = discord.Color.green()
+		else:
+				COLOR = discord.Color.red()
+
+		embed = discord.Embed(title=f"ZeusTheInvestigator", description="", timestamp=datetime.datetime.utcnow(), color=COLOR)
+		embed.add_field(name=f"Checked Link: *{returned[0]}*", value=f"STATUS: {returned[1]}")
+		embed.set_footer(text=f"Credit goes to @777advait#6334")
+		await message.channel.send(embed=embed)
 
 	if "https://discord.com/channels" in message.content:
 		text = message.content
@@ -140,15 +153,17 @@ async def on_message(message):
 																				 inline=False)
 										embed1.set_footer(text=sourceMessage.author, icon_url=sourceMessage.author.avatar_url)
 										await message.channel.send(embed=embed1)
-	
 						except:
-	
 								await message.channel.send(f"-**Cannot** **preview**-\n-"
 															f"**Make sure message is in this server,"
 															f" and not a text file or image**-")
 
 
 if __name__ == "__main__":
-	# t1 = threading.Thread(target=partial_run)
 	keep_alive()
-	client.run(os.environ['TOKEN'])
+	try:
+		client.run(os.environ['TOKEN'])
+	except:
+	    os.system("kill 1")
+
+

@@ -1,6 +1,7 @@
 ** Cheat Sheet / Quick Reference **
 https://overapi.com/python -- A Quick reference python cheatsheet. Very handy to have nearby.
 https://docs.python.org/3/py-modindex.html -- Official Python Docs
+https://github.com/Red-xcv420/Selenium_Docs -- A community made Selenium Quick reference guide! Thanks 
 
 **Cool Tools**
 https://jsonformatter.curiousconcept.com/# --  A site that helps you quickly format JSON into it's most readable form. 

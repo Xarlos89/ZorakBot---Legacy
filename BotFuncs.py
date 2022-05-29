@@ -5,6 +5,9 @@ import requests
 import random
 import json
 import os
+import time 
+
+
 def taunt():
 	r = requests.get('https://fungenerators.com/random/insult/shakespeare/')
 	soup = BeautifulSoup(r.content, "html.parser")
@@ -69,6 +72,27 @@ def fakePerson():
 	generateUser = 'You have requested a fake person:\n\n' + name + '\n'+ hometown + '\n' + age
 	return generateUser
 
-def restart():
-	sleep(7)
-	system("python main.py")
+def dice():
+	roll = ['1','2','3','4','5','6']
+	result = random.choice(roll)
+	return result
+
+def check_site(url):
+	if "https://" in url == True:
+			try:
+					requests.get(url=url, timeout=2.5, verify=False)
+					context = (url, "**ONLINE**")
+			except requests.exceptions.ConnectionError:  # if the site is not online, the program will raise an exception.
+					context = (url, "**OFFLINE**")
+	#main function to check the status of websites.
+	else:
+			fix_url = f"https://{url}"
+			try:
+					requests.get(url=fix_url, timeout=2.5, verify=False)
+					context = (fix_url, "**ONLINE**")
+			except requests.exceptions.ConnectionError:  # if the site is not online, the program will raise an exception.
+					context = ("INVALID URL", "Please try again")
+
+	return context
+
+
