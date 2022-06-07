@@ -1,9 +1,0 @@
-**Day 4**
-
-Question:
-Write a program which will find all numbers that are divisible by 7, but are not a multiple of 5, AND between 2000 and 3200 (both included).
-
-The numbers obtained should be printed in a comma-separated sequence on a single line.
-
-result example:
-```1,2,3,4,5,6,7```

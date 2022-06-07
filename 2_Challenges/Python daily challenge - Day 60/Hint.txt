@@ -1,3 +1,0 @@
-Hints:
-Use shuffle() function to shuffle a list.
-

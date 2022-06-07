@@ -1,3 +1,0 @@
-Hints:
-Use float() to convert an integer to a float
-

@@ -1,1 +1,0 @@
-I've changed thinga a little bit in first Daily Challenge. My program takes any string and reverses it.

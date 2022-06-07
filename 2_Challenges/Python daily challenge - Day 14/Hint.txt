@@ -1,4 +1,0 @@
-Hints:
-
-Use raise() to raise an exception.
-

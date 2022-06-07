@@ -1,3 +1,0 @@
-Hints:
-    The built-in document method is __doc__
-

@@ -1,3 +1,0 @@
-Hints:
-Use Subclass(Parentclass) to define a child class.
-

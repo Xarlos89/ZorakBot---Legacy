@@ -1,4 +1,0 @@
-Hints:
-Use if/elif to deal with conditions.
-
-
