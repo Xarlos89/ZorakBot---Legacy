@@ -50,6 +50,9 @@ async def on_message(message):
 	if message.content == ('!catfact'):
 		await message.channel.send(BotFuncs.catfact(),reference=message)
 		
+	if message.content == ('!catfact'):
+		await message.channel.send(BotFuncs.catfact(),reference=message)
+		
 	if message.content == ('!dogfact'):
 		await message.channel.send(BotFuncs.dogfact(),reference=message)
 		
@@ -61,7 +64,7 @@ async def on_message(message):
 
 	if message.content.startswith('!google') == True:
 		MsgString = str(message.content)
-		msg = 'Here, allow me to gooogle that one for you:\nhttps://letmegooglethat.com/?q=' + str(MsgString[8:].strip().replace(" ","+"))
+		msg = 'Here, allow me to google that one for you:\n<https://letmegooglethat.com/?q=' + str(MsgString[8:].strip().replace(" ","+")+">")
 		await message.channel.send(msg, reference=message)
 		
 	if message.content.startswith('!8ball') == True:
