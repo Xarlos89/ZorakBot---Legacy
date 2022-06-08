@@ -95,4 +95,31 @@ def check_site(url):
 
 	return context
 
+def help_msg():
+	return """
+***For-fun commands***
+- !hello
+- !catfact
+- !dogfact
+- !pugfact
+- !quote
+- !joke
+- !8ball [question]
+- !taunt
+- !rolldice
+- !owo [text]
 
+***Utility Commands***
+- !google [question]
+- !embed </br>[title]</br>[content]  
+- !zeus [website]
+- !fakeperson
+- !poll </br>[title]</br>[options]
+- !suggest [suggestion]
+- avatar [member] (default=author)
+
+***Admin Commands***
+- !echo [message]
+- !dailychallenge
+- !rules </br>[title]</br>[rules]
+	"""
