@@ -1,120 +1,145 @@
 from keep_alive import keep_alive
-import BotFuncs
+import os, math
+from discord.ext.commands import Bot
 import discord
-import os
+import BotFuncs
 import datetime
-import math
+from discord.ext import owoify
+from discord import Member
 
-#----------------------------# Discord Bot main function. 
-client = discord.Client()
+bot = Bot("!")
+bot.remove_command("help")
 
-@client.event
+@bot.event
 async def on_ready():
-	await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
-	print('{0.user}, ready to conquer the world.'.format(client))
+	await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="you..."))
+	print('{0.user}, ready to conquer the world.'.format(bot))
 
-#-----------------------------#  Administrator Bot commands.
-@client.event
-async def on_message(message):
-	if message.content.startswith('!echo') == True:
-		if message.author.guild_permissions.administrator == True:
-			text = message.content.replace('!echo','')
-			await message.channel.send(text)
-			await message.delete()
-		else:
-			await message.channel.send('You are not my master.', reference=message)
 
-	if message.content == ('!dailychallenge'):
-		if message.author.guild_permissions.administrator == True:
-			await message.channel.send(BotFuncs.DailyChallenge())
-			BotFuncs.increaseDay()
-		else:
-			await message.channel.send('You are not my master.', reference=message)
+#-----------------------------#  Administrator Commands
+@bot.command()
+async def echo(ctx, *, args):
+	if ctx.message.author.guild_permissions.administrator:
+		try:
+			await ctx.send(args)
+		except:
+			await ctx.send("Please enter a message to echo.", reference=ctx.message)
+
+	else:
+		await ctx.send(f"Permission denied: with little power comes... no responsibility?", reference=ctx.message)
+
+@bot.command()
+async def dailychallenge(ctx):
+	if ctx.message.author.guild_permissions.administrator:
+		await ctx.send(BotFuncs.DailyChallenge())
+		BotFuncs.increaseDay()
 	
-	if message.content.startswith('!rules') == True:
-		if message.author.guild_permissions.administrator == True:
-			text = message.content
-			text = text.replace('!rules', '').split("\n")
-			embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
-			for index, content in enumerate(text):
-				if int(index) >= 2:
-					embed.add_field(name='Rule #'+str(index-1) , value=content)
-			await message.channel.send(embed=embed), await message.delete()
-		else:
-			await message.channel.send('You are not my master.', reference=message)						
+	else:
+		await ctx.send(f"Permission denied: with little power comes... no responsibility?", reference=ctx.message)
 
-#-----------------------------#  User Commands	
-	if message.content == ('!hello'):
-		await message.channel.send('Dont talk to me, Im being developed.', reference=message)
+@bot.command()
+async def rules(ctx, *, args):
+	if ctx.message.author.guild_permissions.administrator:
+		text = args.replace("!rules", "").split("\n")
+		
+		embed = discord.Embed(title=text[0], description="", timestamp=datetime.datetime.utcnow())
+		for index, content in enumerate(text, 1):
+			if int(index) >= 2:
+				embed.add_field(name='Rule #'+str(index-1) , value=content)
+		await ctx.message.delete()
+		await ctx.send(embed=embed)
+	else:
+		await ctx.send(f"Permission denied: with little power comes... no responsibility?", reference=ctx.message)
 
-	if message.content == ('!catfact'):
-		await message.channel.send(BotFuncs.catfact(),reference=message)
-		
-	if message.content == ('!catfact'):
-		await message.channel.send(BotFuncs.catfact(),reference=message)
-		
-	if message.content == ('!dogfact'):
-		await message.channel.send(BotFuncs.dogfact(),reference=message)
-		
-	if message.content == ('!quote'):
-		await message.channel.send(BotFuncs.quote(),reference=message)
-		   
-	if message.content == ('!joke'):
-		await message.channel.send(BotFuncs.joke(),reference=message)
+#-----------------------------#  User Commands
+@bot.command()
+async def hello(ctx):
+	await ctx.send("Don't talk to me, I am being developed!", reference=ctx.message)
 
-	if message.content.startswith('!google') == True:
-		MsgString = str(message.content)
-		msg = 'Here, allow me to google that one for you:\n<https://letmegooglethat.com/?q=' + str(MsgString[8:].strip().replace(" ","+")+">")
-		await message.channel.send(msg, reference=message)
-		
-	if message.content.startswith('!8ball') == True:
-		await message.channel.send('🎱 - ' + BotFuncs.magik(),reference=message)
-		
-	if message.content == ('!fakeperson'):
-		await message.channel.send(BotFuncs.fakePerson(),reference=message)
+@bot.command()
+async def catfact(ctx):
+	await ctx.send(BotFuncs.catfact(), reference=ctx.message)
 
-	if message.content == ('!pugfact'):
-		await message.channel.send(BotFuncs.pugFact(), reference=message)
-		
-	if message.content == ('!taunt'):
-		await message.channel.send(BotFuncs.taunt(), reference=message)
-		
-	if message.content.startswith('!rolldice') == True:
-		await message.channel.send('**'+str(message.author.name)+'**' + ' rolled a ' +'**'+BotFuncs.dice()+'**', reference=message)
+@bot.command()
+async def dogfact(ctx):
+	await ctx.send(BotFuncs.dogfact(), reference=ctx.message)
+
+@bot.command()
+async def quote(ctx):
+	await ctx.send(BotFuncs.quote(), reference=ctx.message)
+
+@bot.command()
+async def joke(ctx):
+	await ctx.send(BotFuncs.joke(), reference=ctx.message)
+
+@bot.command()
+async def google(ctx, *, args):
+	await ctx.send(
+		f"Here, allow me to google that one for you:\nhttps://letmegooglethat.com/q={args.replace(' ', '+')}",
+		reference=ctx.message
+	)
+
+@bot.command(aliases=["8ball"])
+async def eightball(ctx):
+	await ctx.send('🎱 - ' + BotFuncs.magik(), reference=ctx.message)
+
+@bot.command()
+async def fakeperson(ctx):
+	await ctx.send(BotFuncs.fakePerson(), reference=ctx.message)
+
+@bot.command()
+async def pugfact(ctx):
+	await ctx.send(BotFuncs.pugFact(), reference=ctx.message)
+
+@bot.command()
+async def taunt(ctx):
+	await ctx.send(BotFuncs.taunt(), reference=ctx.message)
+
+@bot.command()
+async def rolldice(ctx):
+	await ctx.send(f"**{ctx.message.author.name}** rolled a **{BotFuncs.dice()}**", reference=ctx.message)
+
+@bot.command()
+async def embed(ctx):
+	text = ctx.message.content.replace("!embed", "").split("\n")
+
+	embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
+
+	if len(text) <= 3:
+		embed.add_field(name="Content", value=text[2])
+		await ctx.message.delete()
+		await ctx.send(embed=embed)
 	
-	if message.content.startswith('!embed') == True:
-		text = message.content
-		text = text.replace('!embed', '').split("\n")
-		embed = discord.Embed(title=text[1], description="", timestamp=datetime.datetime.utcnow())
+	elif len(text) > 3:
+		for i in range(2, len(text)):
+			if len(text[i]) < 1:
+				continue
+			else:
+				embed.add_field(name=f" ----- ", value=text[i], inline=False)
 
-		if len(text) <= 3:
-				embed.add_field(name='Content', value=text[2])
-				await message.channel.send(embed=embed), await message.delete()
-				
-		if len(text) > 3:
-				for i in range(2, len(text)):
-						if len(text[i]) < 1:
-								continue
-						else:
-								embed.add_field(name=f" ----- ", value=text[i], inline=False)
-				embed.set_footer(text=message.author)
-				await message.channel.send(embed=embed), await message.delete()
+		embed.set_footer(icon_url=ctx.message.author.avatar_url, text=ctx.message.author.name)
+		await ctx.message.delete()
+		await ctx.send(embed=embed)
 
-	if message.content.startswith("!zeus") == True:
-		link = message.content.split(" ")
-		returned = BotFuncs.check_site(url=link[1])
-		if returned[1] == "**ONLINE**":
-				COLOR = discord.Color.green()
-		else:
-				COLOR = discord.Color.red()
+@bot.command()
+async def zeus(ctx, *, args):
+	res = BotFuncs.check_site(url=args)
 
-		embed = discord.Embed(title=f"ZeusTheInvestigator", description="", timestamp=datetime.datetime.utcnow(), color=COLOR)
-		embed.add_field(name=f"Checked Link: *{returned[0]}*", value=f"STATUS: {returned[1]}")
-		embed.set_footer(text=f"Credit goes to @777advait#6334")
-		await message.channel.send(embed=embed)
+	if res[1] == "**ONLINE**":
+		COLOR = discord.Color.green()
+	else:
+		COLOR = discord.Color.red()
 
-	if "https://discord.com/channels" in message.content:
-		text = message.content
+	embed = discord.Embed(title="ZeusTheInvestigator", description="", timestamp=datetime.datetime.utcnow(), color=COLOR)
+	embed.add_field(name=f"Checked link: *{res[0]}*", value=f"STATUS: {res[1]}")
+	embed.set_footer(text="Credits to: @777advait#6334")
+
+	await ctx.send(embed=embed)
+
+@bot.command()
+async def preview(ctx, *, args):
+	if "https://discord.com/channels" in args:
+		text = args
 		l = text.replace(", ", " ").split(" ")
 		key = "https://discord.com/channels/"
 		for item in l:
@@ -123,15 +148,13 @@ async def on_message(message):
 								lilink = l[l.index(item)]
 								response = "-**---** Link Preview **---**- \n\n"
 								link = lilink.replace("https://discord.com/channels/", "").split("/")
-								sourceServer = client.get_guild(int(link[0]))
-								sourceChannel = sourceServer.get_channel(int(link[1]))
-								sourceMessage = await sourceChannel.fetch_message(int(link[2]))
+								sourceMessage = await bot.get_guild(int(link[-3])).get_channel(int(link[-2])).fetch_message(int(link[-1]))
 	
 								if len(sourceMessage.content) <= 1000:
 										embed = discord.Embed(title=response, description="", timestamp=datetime.datetime.utcnow())
 										embed.add_field(name=f"Length: {len(sourceMessage.content)}", value=sourceMessage.content)
 										embed.set_footer(text=sourceMessage.author, icon_url=sourceMessage.author.avatar_url)
-										await message.channel.send(embed=embed)
+										await ctx.send(embed=embed)
 	
 								if len(sourceMessage.content) > 1000:
 										contents = sourceMessage.content
@@ -145,18 +168,76 @@ async def on_message(message):
 												embed1.add_field(name="----------------------", value=f"```py\n{con2[feilds]}\n```",
 																				 inline=False)
 										embed1.set_footer(text=sourceMessage.author, icon_url=sourceMessage.author.avatar_url)
-										await message.channel.send(embed=embed1)
+										await ctx.send(embed=embed1)
 						except:
-								await message.channel.send(f"-**Cannot** **preview**-\n-"
+								await ctx.send(f"-**Cannot** **preview**-\n-"
 															f"**Make sure message is in this server,"
 															f" and not a text file or image**-")
 
+@bot.command()
+async def suggest(ctx, *, args):
+	await ctx.message.delete()
+	embed = discord.Embed(description=args, timestamp=datetime.datetime.utcnow())
+	embed.set_author(name=f"Suggestion by {ctx.message.author.display_name}", icon_url=ctx.message.author.avatar_url)
+	msg = await ctx.send(embed=embed)
+	await msg.add_reaction("👍")	
+	await msg.add_reaction("👎")
+
+@bot.command()
+async def poll(ctx):
+	await ctx.message.delete()
+	reactions = {
+        '1': '1️⃣',
+        '2': '2️⃣',
+        '3': '3️⃣',
+        '4': '4️⃣',
+        '5': '5️⃣',
+        '6': '6️⃣',
+        '7': '7️⃣',
+        "8": '8️⃣',
+        "9": '9️⃣',
+        "10": '🔟'
+    }
+	text = ctx.message.content.replace("!poll", "").split("\n")
+
+	if len(text) < 4:
+		await ctx.send("Can't create a poll! Please provide more options.")
+	elif len(text) > 12:
+		await ctx.send("Can't create a poll! Please provide only 10 options.")
+	else:
+		embed = discord.Embed(
+			description=f"**{text[1]}**\n\n"+"\n\n".join(f"{reactions[str(idx)]}: {opt}" for idx, opt in enumerate(text[2:], 1)),
+			timestamp=datetime.datetime.utcnow()
+		)
+		embed.set_author(name=f"Poll by {ctx.author.display_name}", icon_url=ctx.author.avatar_url)
+
+		msg = await ctx.send(embed=embed)
+		
+		for idx in range(1, len(text[2:]) + 1):
+			await msg.add_reaction(reactions[str(idx)])
+
+@bot.command(aliases=["av"])
+async def avatar(ctx, member: Member = None):
+	if not member:
+		member = ctx.author
+	embed = discord.Embed(title=f"Avatar for {member}", description=f"[Download image]({member.avatar_url})", timestamp=datetime.datetime.utcnow())
+	embed.set_image(url=member.avatar_url)
+	await ctx.send(embed=embed, reference=ctx.message)
+
+@bot.command()
+async def owo(ctx, *, args):
+	embed = discord.Embed(description=owoify.owoify(args), timestamp=datetime.datetime.utcnow())
+	embed.set_author(name=f"{ctx.message.author.display_name} OWO'd something!", icon_url=ctx.message.author.avatar_url)
+	await ctx.send(embed=embed, reference=ctx.message)
+
+@bot.command()
+async def help(ctx):
+	embed = discord.Embed(title="User-Commands", description=BotFuncs.help_msg(), timestamp=datetime.datetime.utcnow())
+	await ctx.send(embed=embed, reference=ctx.message)
 
 if __name__ == "__main__":
 	keep_alive()
 	try:
-		client.run(os.environ['TOKEN'])
+		bot.run(os.environ["TOKEN"])
 	except:
 	    os.system("kill 1")
-
-
