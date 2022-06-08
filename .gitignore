@@ -1,9 +1,4 @@
 /1_text_rescorces
 /2_Challenges
 /__pycache__
-/venv
 *.pyc
-*.replit
-*.lock
-*.toml
-*.nix
