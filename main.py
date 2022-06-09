@@ -226,7 +226,7 @@ async def avatar(ctx, member: Member = None):
 
 @bot.command()
 async def owo(ctx, *, args):
-	embed = discord.Embed(description=owoify.owoify(args), timestamp=datetime.datetime.utcnow())
+	embed = discord.Embed(description=await owoify.owoify(args), timestamp=datetime.datetime.utcnow())
 	embed.set_author(name=f"{ctx.message.author.display_name} OWO'd something!", icon_url=ctx.message.author.avatar_url)
 	await ctx.send(embed=embed, reference=ctx.message)
 
